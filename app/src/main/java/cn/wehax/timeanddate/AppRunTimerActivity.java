@@ -1,11 +1,11 @@
 package cn.wehax.timeanddate;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import cn.wehax.common.util.TimeUtils;
+import cn.wehax.common.util.AppRunTimer;
 
 
 public class AppRunTimerActivity extends ActionBarActivity {
@@ -15,16 +15,24 @@ public class AppRunTimerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_run_timer);
 
-        TimeUtils.AppRunTimer.start();
+        AppRunTimer.start();
         for (int i = 0; i < 1000000000L; ++i) {
             int a = 1;
         }
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        AppRunTimer.outputRunTime("onStart");
+        AppRunTimer.start("timer1");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        TimeUtils.AppRunTimer.outputRunTime("onResume");
+        AppRunTimer.outputRunTime("onResume");
+        AppRunTimer.outputRunTime("timer1", "onResume");
     }
 
     @Override
